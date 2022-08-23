@@ -54,8 +54,9 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static int parseBinStrToInt(String in) throws NumberFormatException {
-		int result = 0;
-		int counter = 1;
+		int result = 0; // the variable to return
+		int counter = 1; // helper variable help with result; used to count up to result
+//		int overflowCounter = 0;
 		
 		if (in.length() <= 2 || !in.substring(0,2).equals("0b")) {
 			throw new NumberFormatException("Missing 0b or empty string.");
@@ -65,15 +66,20 @@ public class IntegerConvert {
 			if (in.charAt(i) == '_') {
 				continue;
 			}
-			if (counter == 0) {
+			if (counter == 0) { // if counter goes to 0 means it overflowed; ie: the input was too large
 				throw new NumberFormatException("Number of valid binary characters is too large.");
 			}
+			
+//			if (overflowCounter >= 32) {
+//				throw new NumberFormatException("Number of valid binary characters is too large.");
+//			}
 			
 			if (in.charAt(i) == '1') {
 				result += counter;
 			} else if (in.charAt(i) != '0') {
 				throw new NumberFormatException("Invalid character in binary string.");
 			}
+//			overflowCounter++;
 			counter *= 2;
 		}
 		return result;
@@ -109,8 +115,8 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static byte parseBinStrToByte(String in) throws NumberFormatException {
-		byte result = 0;
-		byte counter = 1;
+		byte result = 0; // the variable to return
+		byte counter = 1; // helper variable help with result; used to count up to result
 		
 		if (in.length() <= 2 || !in.substring(0,2).equals("0b")) {
 			throw new NumberFormatException("Missing 0b or empty string.");
@@ -120,7 +126,7 @@ public class IntegerConvert {
 			if (in.charAt(i) == '_') {
 				continue;
 			}
-			if (counter == 0) {
+			if (counter == 0) { // if counter goes to 0 means it overflowed; ie: the input was too large
 				throw new NumberFormatException("Number of valid binary characters is too large.");
 			}
 
@@ -132,6 +138,8 @@ public class IntegerConvert {
 			counter *= 2;
 		}
 		return result;
+		
+//		return (byte)parseBinStrToInt(in); // problem in line 68
 	}
 	
 	/**
