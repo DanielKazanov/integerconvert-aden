@@ -54,7 +54,51 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static int parseBinStrToInt(String in) throws NumberFormatException {
-		return 0;
+		int result = 0;
+		int counter = 1;
+		
+		if (in.length() <= 2 || !in.substring(0,2).equals("0b")) {
+			throw new NumberFormatException("Missing 0b or empty string.");
+		}
+		
+		for (int i = in.length() - 1; i > 1; i--) {
+			if (in.charAt(i) == '_') {
+				continue;
+			}
+			if (counter == 0) {
+				throw new NumberFormatException("Number of valid binary characters is too large.");
+			}
+			
+			if (in.charAt(i) == '1') {
+				result += counter;
+			} else if (in.charAt(i) != '0') {
+				throw new NumberFormatException("Invalid character in binary string.");
+			}
+			counter *= 2;
+		}
+		return result;
+		
+//		int result = 0;
+//		int counter = 1;
+//		
+//		if (in.length() < 2 || !in.substring(0,2).equals("0b")) {
+//			throw new NumberFormatException("Missing 0b");
+//		}
+//		
+//		
+//		for (int i = in.length() - 1; i > 1; i--) {
+//			if (in.charAt(i) == '_') {
+//				continue;
+//			}
+//			
+//			if (in.charAt(i) == '1') {
+//				result += counter;
+//			} else if (in.charAt(i) != '0') {
+//				throw new NumberFormatException("Invalid character in binary string.");
+//			}
+//			counter *= 2;
+//		}
+//		return result;		
 	}
 	
 	/**
@@ -65,7 +109,29 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static byte parseBinStrToByte(String in) throws NumberFormatException {
-		return 0;
+		byte result = 0;
+		byte counter = 1;
+		
+		if (in.length() <= 2 || !in.substring(0,2).equals("0b")) {
+			throw new NumberFormatException("Missing 0b or empty string.");
+		}
+		
+		for (int i = in.length() - 1; i > 1; i--) {
+			if (in.charAt(i) == '_') {
+				continue;
+			}
+			if (counter == 0) {
+				throw new NumberFormatException("Number of valid binary characters is too large.");
+			}
+
+			if (in.charAt(i) == '1') {
+				result += counter;
+			} else if (in.charAt(i) != '0') {
+				throw new NumberFormatException("Invalid character in binary string.");
+			}
+			counter *= 2;
+		}
+		return result;
 	}
 	
 	/**
@@ -139,7 +205,62 @@ public class IntegerConvert {
 		// TODO Auto-generated method stub
 		// You should write basic testing of each of your methods here.
 		// I will provide a more comprehensive testing using JUnit later.
-
+		
+//		System.out.println("(Int) Expected: 85");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToInt("0b01010101"));
+//		
+//		System.out.println("(Int) Expected: 31");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToInt("0b_0_0_0_1_1_1_1_1"));
+//		
+//		System.out.println("---------------------------------------------------------------------------------");
+//		
+//		System.out.println("(Byte) Expected: 85");
+//		System.out.print("(Byte) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToByte("0b01010101"));
+//		
+//		System.out.println("(Byte) Expected: 31");
+//		System.out.print("(Byte) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToByte("0b_0_0_0_1_1_1_1_1"));
+		
+		
+		
+		
+		
+		System.out.println("(Int) Expected: Missing 0b or empty string.");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToInt("0b"));
+		
+		System.out.println("(Int) Expected: Missinsg 0b or empty string.");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToInt("empty"));
+		
+		System.out.println("(Int) Expected: ");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToInt("0b"));
+		
+		System.out.println("(Int) Expected: Number of valid binary characters is too large.");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToInt("0b11111111111111111111111111111111111"));
+		
+		System.out.println("---------------------------------------------------------------------------------");
+		
+		System.out.println("(Int) Expected: Missing 0b or empty string.");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToByte("0b"));
+		
+		System.out.println("(Int) Expected: Missinsg 0b or empty string.");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToByte("empty"));
+		
+		System.out.println("(Int) Expected: ");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToByte("0b"));
+		
+		System.out.println("(Int) Expected: Number of valid binary characters is too large.");
+		System.out.print("(Int) Actual: ");
+		System.out.println(IntegerConvert.parseBinStrToByte("0b11111111111111111111111111111111111"));
 	}
 
 }
