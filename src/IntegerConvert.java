@@ -171,7 +171,22 @@ public class IntegerConvert {
 	 * @return the equivalent binary string representation (32 bits)
 	 */
 	public static String intToBinaryString(int in) {
-		return("");
+		String result = "";
+		
+		while (in != 0) {
+			result = in % 2 + result;
+			in /= 2;
+		}
+		return result;
+		
+//		String str = "";
+//		int aInt = 100;
+//		int mask = 0x80;
+//		for (int i = 0; i < 8; i++) {
+//			str += ((mask & aInt) > 0) ? "1" : "0";
+//			mask = mask >>> 1;
+//		}
+//		return str;
 	}
 	
 	/**
@@ -181,7 +196,23 @@ public class IntegerConvert {
 	 * @return the equivalent binary string representation (8 bits)
 	 */
 	public static String byteToBinaryString(byte in) {
-		return("");
+		String result = "";
+		
+		while (in != 0) {
+			result = in % 2 + result;
+			in /= 2;
+		}
+		
+		return result;
+		
+//		String str = "";
+//		byte aByte = 100;
+//		int mask = 0x80;
+//		for (int i = 0; i < 8; i++) {
+//			str += ((mask & aByte) > 0) ? "1" : "0";
+//			mask = mask >>> 1;
+//		}
+//		return str;
 	}
 	
 	/**
@@ -191,7 +222,14 @@ public class IntegerConvert {
 	 * @return the equivalent hex string representation (8 hex chars)
 	 */
 	public static String intToHexString(int in) {
-		return("");
+		String result = "";
+		
+		while (in != 0) {
+			result = in % 16 + result;
+			in /= 16;
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -201,7 +239,14 @@ public class IntegerConvert {
 	 * @return the equivalent hex string representation (2 hex chars)
 	 */
 	public static String byteToHexString(byte in) {
-		return("");	
+		String result = "";
+		
+		while (in != 0) {
+			result = in % 16 + result;
+			in /= 16;
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -236,39 +281,51 @@ public class IntegerConvert {
 		
 		
 		
-		System.out.println("(Int) Expected: Missing 0b or empty string.");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToInt("0b"));
+//		System.out.println("(Int) Expected: Missing 0b or empty string.");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToInt("0b"));
+//		
+//		System.out.println("(Int) Expected: Missinsg 0b or empty string.");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToInt("empty"));
+//		
+//		System.out.println("(Int) Expected: ");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToInt("0b"));
+//		
+//		System.out.println("(Int) Expected: Number of valid binary characters is too large.");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToInt("0b11111111111111111111111111111111111"));
+//		
+//		System.out.println("---------------------------------------------------------------------------------");
+//		
+//		System.out.println("(Int) Expected: Missing 0b or empty string.");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToByte("0b"));
+//		
+//		System.out.println("(Int) Expected: Missinsg 0b or empty string.");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToByte("empty"));
+//		
+//		System.out.println("(Int) Expected: ");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToByte("0b"));
+//		
+//		System.out.println("(Int) Expected: Number of valid binary characters is too large.");
+//		System.out.print("(Int) Actual: ");
+//		System.out.println(IntegerConvert.parseBinStrToByte("0b11111111111111111111111111111111111"));
 		
-		System.out.println("(Int) Expected: Missinsg 0b or empty string.");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToInt("empty"));
 		
-		System.out.println("(Int) Expected: ");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToInt("0b"));
 		
-		System.out.println("(Int) Expected: Number of valid binary characters is too large.");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToInt("0b11111111111111111111111111111111111"));
+		
+		
+		System.out.println(intToBinaryString(120));
+		System.out.println(byteToBinaryString((byte)120));
 		
 		System.out.println("---------------------------------------------------------------------------------");
 		
-		System.out.println("(Int) Expected: Missing 0b or empty string.");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToByte("0b"));
-		
-		System.out.println("(Int) Expected: Missinsg 0b or empty string.");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToByte("empty"));
-		
-		System.out.println("(Int) Expected: ");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToByte("0b"));
-		
-		System.out.println("(Int) Expected: Number of valid binary characters is too large.");
-		System.out.print("(Int) Actual: ");
-		System.out.println(IntegerConvert.parseBinStrToByte("0b11111111111111111111111111111111111"));
+		System.out.println(intToHexString(120));
+		System.out.println(byteToHexString((byte)120));
 	}
 
 }
