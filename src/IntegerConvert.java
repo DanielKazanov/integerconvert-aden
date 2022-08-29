@@ -56,7 +56,6 @@ public class IntegerConvert {
 	public static int parseBinStrToInt(String in) throws NumberFormatException {
 		int result = 0; // the variable to return
 		int counter = 1; // helper variable help with result; used to count up to result
-//		int overflowCounter = 0;
 		
 		if (in.length() <= 2 || !in.substring(0,2).equals("0b")) {
 			throw new NumberFormatException("Missing 0b or empty string.");
@@ -70,41 +69,15 @@ public class IntegerConvert {
 				throw new NumberFormatException("Number of valid binary characters is too large.");
 			}
 			
-//			if (overflowCounter >= 32) {
-//				throw new NumberFormatException("Number of valid binary characters is too large.");
-//			}
-			
 			if (in.charAt(i) == '1') {
 				result += counter;
 			} else if (in.charAt(i) != '0') {
 				throw new NumberFormatException("Invalid character in binary string.");
 			}
-//			overflowCounter++;
+
 			counter *= 2;
 		}
 		return result;
-		
-//		int result = 0;
-//		int counter = 1;
-//		
-//		if (in.length() < 2 || !in.substring(0,2).equals("0b")) {
-//			throw new NumberFormatException("Missing 0b");
-//		}
-//		
-//		
-//		for (int i = in.length() - 1; i > 1; i--) {
-//			if (in.charAt(i) == '_') {
-//				continue;
-//			}
-//			
-//			if (in.charAt(i) == '1') {
-//				result += counter;
-//			} else if (in.charAt(i) != '0') {
-//				throw new NumberFormatException("Invalid character in binary string.");
-//			}
-//			counter *= 2;
-//		}
-//		return result;		
 	}
 	
 	/**
@@ -138,8 +111,6 @@ public class IntegerConvert {
 			counter *= 2;
 		}
 		return result;
-		
-//		return (byte)parseBinStrToInt(in); // problem in line 68
 	}
 	
 	/**
@@ -171,22 +142,13 @@ public class IntegerConvert {
 	 * @return the equivalent binary string representation (32 bits)
 	 */
 	public static String intToBinaryString(int in) {
-		String result = "";
-		
-		while (in != 0) {
-			result = in % 2 + result;
-			in /= 2;
+		String str = "";
+		long mask = 2147483648L;
+		for (int i = 0; i < 32; i++) { // 32 * 1 = 32
+			str += ((mask & in) > 0) ? "1" : "0";
+			mask = mask >>> 1; // shift by 1 digit
 		}
-		return result;
-		
-//		String str = "";
-//		int aInt = 100;
-//		int mask = 0x80;
-//		for (int i = 0; i < 8; i++) {
-//			str += ((mask & aInt) > 0) ? "1" : "0";
-//			mask = mask >>> 1;
-//		}
-//		return str;
+		return str;
 	}
 	
 	/**
@@ -196,23 +158,13 @@ public class IntegerConvert {
 	 * @return the equivalent binary string representation (8 bits)
 	 */
 	public static String byteToBinaryString(byte in) {
-		String result = "";
-		
-		while (in != 0) {
-			result = in % 2 + result;
-			in /= 2;
+		String str = "";
+		int mask = 0x80;
+		for (int i = 0; i < 8; i++) { // 8 * 1 = 8
+			str += ((mask & in) > 0) ? "1" : "0";
+			mask = mask >>> 1; // shift by 1 digit
 		}
-		
-		return result;
-		
-//		String str = "";
-//		byte aByte = 100;
-//		int mask = 0x80;
-//		for (int i = 0; i < 8; i++) {
-//			str += ((mask & aByte) > 0) ? "1" : "0";
-//			mask = mask >>> 1;
-//		}
-//		return str;
+		return str;
 	}
 	
 	/**
@@ -223,10 +175,14 @@ public class IntegerConvert {
 	 */
 	public static String intToHexString(int in) {
 		String result = "";
+		String[] keyArray = new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"}; // chart for identification
+		int temp = 0;
+		int numHexDigitsInAnInt = 8; // 8 * 4 = 32
 		
-		while (in != 0) {
-			result = in % 16 + result;
-			in /= 16;
+		for (int i = 0; i < numHexDigitsInAnInt; i++) {
+			temp = in & 0b1111; // get last 4 digits
+			result = keyArray[temp] + result;
+			in >>>= 4; // shift by 4
 		}
 		
 		return result;
@@ -240,10 +196,14 @@ public class IntegerConvert {
 	 */
 	public static String byteToHexString(byte in) {
 		String result = "";
+		String[] keyArray = new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"}; // chart for identification
+		int temp = 0;
+		int numHexDigitsInAByte = 2; // 2 * 4 = 8
 		
-		while (in != 0) {
-			result = in % 16 + result;
-			in /= 16;
+		for (int i = 0; i < numHexDigitsInAByte; i++) {
+			temp = in & 0b1111; // get last 4 digits
+			result = keyArray[temp] + result;
+			in >>>= 4; // shift by 4
 		}
 		
 		return result;
@@ -318,14 +278,40 @@ public class IntegerConvert {
 		
 		
 		
+		System.out.println("(Int) Expected: 00000000000000000000000000001111");
+		System.out.print("Actual: ");
+		System.out.println(intToBinaryString(15));
+		System.out.println("(Byte) Expected: 00001111");
+		System.out.print("Actual: ");
+		System.out.println(byteToBinaryString((byte)15));
 		
-		System.out.println(intToBinaryString(120));
-		System.out.println(byteToBinaryString((byte)120));
+		System.out.println();
+		
+		System.out.println("(Int) Expected: 11111111111111111111111111110001");
+		System.out.print("(Int )Actual: ");
+		System.out.println(intToBinaryString(-15));
+		System.out.println("(Byte) Expected: 11110001");
+		System.out.print("(Byte)Actual: ");
+		System.out.println(byteToBinaryString((byte)-15));
+		
 		
 		System.out.println("---------------------------------------------------------------------------------");
 		
+		System.out.println("(Int) Expected: 00000078");
+		System.out.print("(Int) Actual: ");
 		System.out.println(intToHexString(120));
+		System.out.println("(Byte) Expected: 7878");
+		System.out.print("(Byte) Actual: 78");
 		System.out.println(byteToHexString((byte)120));
+		
+		System.out.println();
+		
+		System.out.println("(Int) Expected: ffffff88");
+		System.out.print("(Int) Actual: ");
+		System.out.println(intToHexString(-120));
+		System.out.println("(Byte) Expected: 88");
+		System.out.print("(Byte) Actual: ");
+		System.out.println(byteToHexString((byte)-120));
 	}
 
 }

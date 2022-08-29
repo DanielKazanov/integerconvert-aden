@@ -19,7 +19,7 @@ class IntegerConvertExceptionsTest {
 
 
 	/**
-	 * Sets the up before class.
+	 * Sets the up before class.3
 	 *
 	 * @throws Exception the exception
 	 */
